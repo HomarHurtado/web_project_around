@@ -7,7 +7,7 @@
   max-width: 880px;
   justify-content: space-between;
   background-color: #000;
-  padding: 10px 20px;
+  padding: 10px 0px;
   border-radius: 5px;
 }
 
@@ -93,4 +93,72 @@
 
 .profile__add-button:hover {
   opacity: 1;
+}
+
+/* ------------------------------------------------------------- */
+/* Media Queries */
+/* ------------------------------------------------------------- */
+
+@media screen and (max-width: 620px) {
+  .profile {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 42px;
+    gap: 36px;
+    padding: 0 19px;
+    max-width: 100%;
+    background-color: transparent;
+    border-radius: 0;
+  }
+
+  .profile__image-container {
+    width: 120px;
+    height: 120px;
+  }
+
+  .profile__info {
+    align-items: center;
+    gap: 14px;
+  }
+
+  .profile__title-container {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .profile__info__title {
+    font-size: 27px;
+    line-height: 33px;
+    text-align: center;
+    gap: 0;
+  }
+
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    border-width: 0.5px;
+  }
+
+  .profile__info__subtitle {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+
+  .profile__add-button {
+    width: 80%;
+    height: 42px;
+    background-size: 16px;
+    margin-top: 32px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile {
+    padding: 0 10px;
+  }
+
+  .profile__add-button {
+    width: 80%;
+  }
 }

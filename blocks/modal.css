@@ -100,3 +100,54 @@
 .popup__button:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
+
+/* ------------------------------------------------------------- */
+/* Media Queries */
+/* ------------------------------------------------------------- */
+
+@media screen and (max-width: 620px) {
+  .popup__container {
+    width: calc(100% - 38px);
+    padding: 25px 22px;
+    border-radius: 10px;
+  }
+
+  .popup__close-button {
+    width: 26px;
+    height: 26px;
+    background-size: contain;
+    top: -36px;
+    right: 0;
+  }
+
+  .popup__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 30px;
+  }
+
+  .popup__form {
+    gap: 20px;
+  }
+
+  .popup__input {
+    padding: 10px 0 10px 10px;
+  }
+
+  .popup__button {
+    font-size: 14px;
+    line-height: 17px;
+    padding: 10px 0;
+    margin-top: 15px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .popup__container {
+    padding: 20px 15px;
+  }
+
+  .popup__close-button {
+    top: -30px;
+  }
+}
