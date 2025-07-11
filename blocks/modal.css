@@ -27,14 +27,14 @@
 .popup__close-button {
   width: 40px;
   height: 40px;
-  background: transparent url("images/close-icon.svg") center no-repeat;
+  background: url("../images/close-icon.svg") center no-repeat;
   border: none;
   position: absolute;
   top: -45px;
   right: -45px;
   cursor: pointer;
   opacity: 0.6;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .popup__close-button:hover {
@@ -42,7 +42,7 @@
 }
 
 .popup__title {
-  font-family: "Inter-Regular", sans-serif;
+  font-family: "Inter-Black", sans-serif;
   font-size: 24px;
   line-height: 29px;
   font-weight: 900;
@@ -62,21 +62,13 @@
   flex-direction: column;
 }
 
-.popup__label {
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 12px;
-  line-height: 15px;
-  color: #000;
-  margin-bottom: 5px;
-}
-
 .popup__input {
   font-family: "Inter-Regular", sans-serif;
   font-size: 14px;
-  line-height: 17px;
+  line-height: 1.2px;
   color: #000;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 13px 0 13px 15px;
 }
 
@@ -98,10 +90,10 @@
   color: #fff;
   background-color: #000;
   border: none;
-  border-radius: 8px;
+  border-radius: 2px;
   padding: 14px 0;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
   margin-top: 18px;
 }
 
