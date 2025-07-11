@@ -42,7 +42,7 @@
 }
 
 .popup__title {
-  font-family: "Inter-Regular", sans-serif;
+  font-family: "Inter-Black", sans-serif;
   font-size: 24px;
   line-height: 29px;
   font-weight: 900;
@@ -61,14 +61,6 @@
   display: flex;
   flex-direction: column;
 }
-
-/* .popup__label {
-  font-family: "Inter-Regular", sans-serif;
-  font-size: 12px;
-  line-height: 15px;
-  color: #000;
-  margin-bottom: 5px;
-} */
 
 .popup__input {
   font-family: "Inter-Regular", sans-serif;
