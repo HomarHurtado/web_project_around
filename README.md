@@ -14,3 +14,4 @@ Página web con un perfil de usuario personalizable y una galería de tarjetas i
 - Lenguajes: HTML5, CSS (con Flexbox y Grid), JavaScript
 
 ## Enlace a GitHub Pages:
+https://homarhurtado.github.io/web_project_around/
