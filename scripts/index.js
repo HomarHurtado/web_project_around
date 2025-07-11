@@ -1,7 +1,7 @@
 // 1. Elementos del DOM para la sección de perfil
 const profileEditButton = document.querySelector(".profile__edit-button");
-const profileTitle = document.querySelector(".profile__info__title");
-const profileSubtitle = document.querySelector(".profile__info__subtitle");
+const profileTitle = document.querySelector(".profile__info_title");
+const profileSubtitle = document.querySelector(".profile__info_subtitle");
 
 // 2. Elementos del DOM para la ventana modal (popup de edición de perfil)
 const popupElement = document.querySelector("#edit-profile-popup");
