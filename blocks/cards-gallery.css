@@ -1,0 +1,111 @@
+.cards-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  column-gap: 17px;
+  row-gap: 20px;
+  justify-content: center;
+  margin-top: 50px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  width: 282px;
+  height: 361px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card__image {
+  width: 100%;
+  height: 282px;
+  object-fit: cover;
+  display: block;
+}
+
+.card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 20px 25px 20px;
+  background-color: #fff;
+  flex-grow: 1;
+}
+
+.card__title {
+  font-family: "Inter-Black", sans-serif;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 900;
+  color: #000;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card__like-button {
+  background: none;
+  border: none;
+  padding: 0;
+  right: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card__like-icon {
+  width: 21px;
+  height: 19px;
+  object-fit: contain;
+}
+
+/* ------------------------------------------------------------- */
+/* Media Queries */
+/* ------------------------------------------------------------- */
+
+@media screen and (max-width: 620px) {
+  .cards-gallery {
+    grid-template-columns: 1fr;
+    padding: 0 19px;
+    row-gap: 20px;
+    column-gap: 0;
+  }
+
+  .card {
+    width: 100%;
+    height: auto;
+  }
+
+  .card__image {
+    width: 100%;
+    height: 282px;
+  }
+
+  .card__footer {
+    padding: 20px;
+  }
+
+  .card__title {
+    font-size: 20px;
+    line-height: 1.2;
+    max-width: calc(100% - 40px);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .cards-gallery {
+    padding: 0 10px;
+  }
+
+  .card__title {
+    font-size: 18px;
+  }
+}

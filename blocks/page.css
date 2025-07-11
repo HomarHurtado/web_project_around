@@ -1,0 +1,29 @@
+body {
+  background-color: #000;
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  color: #fff;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 18px;
+}
+
+/* ------------------------------------------------------------- */
+/* Media Queries */
+/* ------------------------------------------------------------- */
+
+@media screen and (max-width: 620px) {
+  .page {
+    max-width: 100%;
+    padding: 0 19px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .page {
+    padding: 0 10px;
+  }
+}
