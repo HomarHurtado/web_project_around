@@ -19,8 +19,8 @@ const aboutInput = popupForm.querySelector("#about-input");
 // Función para abrir la ventana modal
 function openPopup() {
   // Llenar los campos del formulario con los valores actuales del perfil
-  nameInput.value = profileTitle.textContent;
-  aboutInput.value = profileSubtitle.textContent;
+  nameInput.value = profileTitle.textContent.trim();
+  aboutInput.value = profileSubtitle.textContent.trim();
 
   // Añadir la clase que muestra el popup
   popupElement.classList.add("popup_opened");
