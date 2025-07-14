@@ -32,6 +32,21 @@ function closePopup() {
   popupElement.classList.remove("popup_opened");
 }
 
+// Cerrar la ventana modal con la tecla Escape
+document.addEventListener("keydown", function (evt) {
+  if (evt.key === "Escape") {
+    closePopup();
+  }
+});
+
+// Cerrar la ventana modal haciendo clic en el fondo
+popupElement.addEventListener("click", function (evt) {
+  // Si el elemento clickeado es el pop-up mismo (el fondo)
+  if (evt.target === popupElement) {
+    closePopup();
+  }
+});
+
 // Manipulador (handler) de entrega del formulario
 function handleProfileFormSubmit(evt) {
   // Esta línea impide que el navegador entregue el formulario en su forma predeterminada (recargar la página).
@@ -61,3 +76,22 @@ popupCloseButton.addEventListener("click", closePopup);
 
 // 3. Conectar el manipulador de entrega al formulario del popup
 popupForm.addEventListener("submit", handleProfileFormSubmit);
+
+// -----------------------------------------------------------
+// Lógica para el botón de "Me Gusta"
+// -----------------------------------------------------------
+
+// 1. Seleccionar TODOS los botones de "like" que existen en la página
+const likeButtons = document.querySelectorAll(".card__like-button");
+
+// 2. Función que se ejecutará al hacer clic en un botón
+function handleLikeButtonClick(evt) {
+  // evt.currentTarget es el botón exacto al que se le hizo clic.
+  // classList.toggle añade la clase si no está, y la quita si ya está. ¡Es un interruptor!
+  evt.currentTarget.classList.toggle("card__like-button--active");
+}
+
+// 3. Recorrer cada botón y asignarle el "escuchador" de eventos
+likeButtons.forEach((button) => {
+  button.addEventListener("click", handleLikeButtonClick);
+});

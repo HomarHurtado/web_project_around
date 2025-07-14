@@ -50,7 +50,12 @@
 }
 
 .card__like-button {
-  background: none;
+  background-color: transparent;
+  background-image: url("../images/heart-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 21px;
+  height: 19px;
   border: none;
   padding: 0;
   right: 18px;
@@ -59,12 +64,17 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
 }
 
-.card__like-icon {
-  width: 21px;
-  height: 19px;
-  object-fit: contain;
+.card__like-button:hover {
+  opacity: 0.5;
+}
+
+.card__like-button--active {
+  background-image: url("../images/heart-icon-fill.svg");
+  opacity: 1;
 }
 
 /* ------------------------------------------------------------- */
