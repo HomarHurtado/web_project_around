@@ -36,86 +36,25 @@
           <button class="profile__add-button"></button>
         </section>
 
-        <div class="cards-gallery">
-          <article class="card">
-            <img
-              src="images/card_yosemite.jpg"
-              alt="Valle de Yosemite"
-              class="card__image"
-            />
-            <div class="card__footer">
-              <h3 class="card__title">Valle de Yosemite</h3>
-              <button class="card__like-button" aria-label="Me gusta"></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img
-              src="images/card_lago-louise.jpg"
-              alt="Lago Louise"
-              class="card__image"
-            />
-            <div class="card__footer">
-              <h3 class="card__title">Lago Louise</h3>
-              <button class="card__like-button" aria-label="Me gusta"></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img
-              src="images/card_montanas_calvas.jpg"
-              alt="Montañas Calvas"
-              class="card__image"
-            />
-            <div class="card__footer">
-              <h3 class="card__title">Montañas Calvas</h3>
-              <button class="card__like-button" aria-label="Me gusta"></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img
-              src="images/card_latemar.jpg"
-              alt="Latemar"
-              class="card__image"
-            />
-            <div class="card__footer">
-              <h3 class="card__title">Latemar</h3>
-              <button class="card__like-button" aria-label="Me gusta"></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img
-              src="images/card_vanois.jpg"
-              alt="Vanois National Park"
-              class="card__image"
-            />
-            <div class="card__footer">
-              <h3 class="card__title">Vanois National Park</h3>
-              <button class="card__like-button" aria-label="Me gusta"></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img
-              src="images/card_lago-di-braies.jpg"
-              alt="Lago di Braies"
-              class="card__image"
-            />
-            <div class="card__footer">
-              <h3 class="card__title">Lago di Braies</h3>
-              <button class="card__like-button" aria-label="Me gusta"></button>
-            </div>
-          </article>
-        </div>
+        <div class="cards-gallery"></div>
       </main>
+
+      <template id="card-template">
+        <article class="card">
+          <img src="" alt="" class="card__image" />
+          <button class="card__delete-button" aria-label="Eliminar"></button>
+          <div class="card__footer">
+            <h3 class="card__title"></h3>
+            <button class="card__like-button" aria-label="Me gusta"></button>
+          </div>
+        </article>
+      </template>
 
       <footer class="footer">
         <p class="footer__copyright">&#x00a9; 2025 Homar Hurtado</p>
       </footer>
 
-      <!-- Pop-up Modal -->
+      <!-- Editar Perfil Pop-up Modal -->
       <div class="popup" id="edit-profile-popup">
         <div class="popup__container">
           <button
@@ -144,6 +83,47 @@
             </div>
             <button type="submit" class="popup__button">Guardar</button>
           </form>
+        </div>
+      </div>
+
+      <!-- Agregar Tarjeta Pop-up Modal -->
+      <div class="popup" id="add-card-popup">
+        <div class="popup__container">
+          <button
+            type="button"
+            class="popup__close-button"
+            aria-label="Cerrar"
+          ></button>
+          <h2 class="popup__title">Agregar lugar</h2>
+          <form class="popup__form">
+            <div class="popup__input-container">
+              <input
+                type="text"
+                id="title-input"
+                class="popup__input"
+                name="title"
+                placeholder="Título"
+              />
+            </div>
+            <div class="popup__input-container">
+              <input
+                id="img_url"
+                class="popup__input"
+                name="img_url"
+                placeholder="URL de la imagen"
+              />
+            </div>
+            <button type="submit" class="popup__button">Crear</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Imagen en Grande Pop-up Modal -->
+      <div class="popup" id="image-popup">
+        <div class="popup__container_type_image">
+          <button class="popup__close-button"></button>
+          <img src="" alt="" class="popup__image" />
+          <p class="popup__image-caption"></p>
         </div>
       </div>
     </div>
