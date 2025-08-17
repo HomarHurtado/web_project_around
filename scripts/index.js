@@ -138,6 +138,19 @@ function handleProfileFormSubmit(evt) {
   closePopup(editProfilePopupElement);
 }
 
+// --- Maneja el envío del formulario de "Agregar Tarjeta" ---
+function handleAddCardFormSubmit(evt) {
+  evt.preventDefault();
+  const newCardData = {
+    name: titleInput.value,
+    link: imageUrlInput.value,
+  };
+  const cardElement = createCard(newCardData);
+  cardsContainer.prepend(cardElement);
+  closePopup(addCardPopupElement);
+  addCardForm.reset();
+}
+
 // -- Mostrar y ocultar mensaje de error de validación -- //
 function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(
@@ -159,7 +172,7 @@ function hideInputError(formElement, inputElement) {
   errorElement.classList.remove("popup__error_visible");
 }
 
-// -- Validación de campos de "Editar Perfil" -- //
+// -- Validación de campos del formulario -- //
 function checkInputValidity(formElement, inputElement) {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
@@ -174,7 +187,7 @@ function hasInvalidInput(inputList) {
   });
 }
 
-// -- Activar y desactivar botón de "Guardar" -- //
+// -- Habilitar y deshabilitar botón submit de formularios -- //
 function toggleButtonState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add("popup__button_disabled");
@@ -185,7 +198,7 @@ function toggleButtonState(inputList, buttonElement) {
   }
 }
 
-// Eventos para validación de formulario
+// Agregar eventos para validación de formulario
 function setEventListeners(formElement) {
   const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
   const buttonElement = formElement.querySelector(".popup__button");
@@ -200,7 +213,7 @@ function setEventListeners(formElement) {
   });
 }
 
-// -- Resetear validación al cerrar y abrir modal -- //
+// -- Restablecer validación al cerrar y abrir modal -- //
 function resetValidation(formElement) {
   const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
   const buttonElement = formElement.querySelector(".popup__button");
@@ -210,19 +223,6 @@ function resetValidation(formElement) {
   });
 
   toggleButtonState(inputList, buttonElement);
-}
-
-// --- Maneja el envío del formulario de "Agregar Tarjeta" ---
-function handleAddCardFormSubmit(evt) {
-  evt.preventDefault();
-  const newCardData = {
-    name: titleInput.value,
-    link: imageUrlInput.value,
-  };
-  const cardElement = createCard(newCardData);
-  cardsContainer.prepend(cardElement);
-  closePopup(addCardPopupElement);
-  addCardForm.reset();
 }
 
 // =============================================================================
@@ -276,6 +276,6 @@ document.querySelectorAll(".popup").forEach((popup) => {
   });
 });
 
-// -- Activar la validacion de formularios -- //
+// Activar la validacion de formularios //
 setEventListeners(editProfileForm);
 setEventListeners(addCardForm);
