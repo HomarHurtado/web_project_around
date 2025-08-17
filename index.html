@@ -71,7 +71,14 @@
                 class="popup__input"
                 name="name"
                 placeholder="Nombre"
+                minlength="2"
+                maxlength="40"
+                required
               />
+              <span
+                class="popup__input-error"
+                id="popup__input-error_name"
+              ></span>
             </div>
             <div class="popup__input-container">
               <input
@@ -79,7 +86,14 @@
                 class="popup__input"
                 name="about"
                 placeholder="Acerca de mí"
+                minlength="2"
+                maxlength="200"
+                required
               />
+              <span
+                class="popup__input-error"
+                id="popup__input-error_about"
+              ></span>
             </div>
             <button type="submit" class="popup__button">Guardar</button>
           </form>
@@ -103,7 +117,14 @@
                 class="popup__input"
                 name="title"
                 placeholder="Título"
+                minlength="2"
+                maxlength="30"
+                required
               />
+              <span
+                class="popup__input-error"
+                id="popup__input-error_title"
+              ></span>
             </div>
             <div class="popup__input-container">
               <input
@@ -111,9 +132,15 @@
                 class="popup__input"
                 name="img_url"
                 placeholder="URL de la imagen"
+                type="url"
+                required
               />
+              <span
+                class="popup__input-error"
+                id="popup__input-error_img_url"
+              ></span>
             </div>
-            <button type="submit" class="popup__button">Crear</button>
+            <button type="submit" class="popup__button">Agregar</button>
           </form>
         </div>
       </div>
