@@ -1,5 +1,12 @@
 // =============================================================================
-// DATOS INICIALES
+//                                 IMPORTS
+// =============================================================================
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+import { openPopup, closePopup } from "./utils.js";
+
+// =============================================================================
+//                                DATOS INICIALES
 // =============================================================================
 
 const initialCards = [
@@ -29,8 +36,18 @@ const initialCards = [
   },
 ];
 
+// Objeto de configuración para la validación
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
 // =============================================================================
-// SELECCIÓN DE ELEMENTOS DEL DOM
+//                          SELECCIÓN DE ELEMENTOS DEL DOM
 // =============================================================================
 
 // --- Perfil ---
@@ -65,194 +82,64 @@ const imagePopupCloseButton = imagePopupElement.querySelector(
 const popupImage = imagePopupElement.querySelector(".popup__image");
 const popupCaption = imagePopupElement.querySelector(".popup__image-caption");
 
-// --- Galería y Plantilla de Tarjetas ---
+// --- Galería ---
 const cardsContainer = document.querySelector(".cards-gallery");
-const cardTemplate = document.querySelector("#card-template").content;
 
 // =============================================================================
-// FUNCIONES
+//                             VALIDACIÓN DE FORMULARIOS
 // =============================================================================
 
-// --- Abre un modal o pop-up ---
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", handleEscapeKey);
-}
+// Crea una instancia de FormValidator para cada formulario
+const editFormValidator = new FormValidator(validationConfig, editProfileForm);
+const addFormValidator = new FormValidator(validationConfig, addCardForm);
 
-// --- Cierra un modal o pop-up ---
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", handleEscapeKey);
-}
+// Activa la validación
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
-// --- Cierra el modal activo si se presiona la tecla 'Escape' ---
-function handleEscapeKey(evt) {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    if (openedPopup) {
-      closePopup(openedPopup);
-    }
-  }
-}
+// =============================================================================
+//                             MANEJO DE TARJETAS
+// =============================================================================
 
-// --- Crea un elemento de tarjeta a partir de datos y una plantilla ---
-function createCard(data) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardTitle = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
+// Función para crear una tarjeta y añadirla al DOM
+function createNewCard(cardData) {
+  const card = new Card(cardData, "#card-template", (name, link) => {
+    popupImage.src = link;
+    popupImage.alt = `Imagen ampliada de ${name}`;
+    popupCaption.textContent = name;
+    openPopup(imagePopupElement);
+  });
 
-  cardImage.src = data.link;
-  cardImage.alt = `Fotografía de ${data.name}`;
-  cardTitle.textContent = data.name;
-
-  // Asignamos los eventos a los botones y a la imagen de la tarjeta
-  likeButton.addEventListener("click", handleLikeButtonClick);
-  deleteButton.addEventListener("click", () => cardElement.remove());
-  cardImage.addEventListener("click", () =>
-    openImagePopup(data.name, data.link)
-  );
-
+  const cardElement = card.generateCard();
   return cardElement;
 }
 
-// --- Abre el modal de visualización de imagen con los datos correspondientes ---
-function openImagePopup(name, link) {
-  popupImage.src = link;
-  popupImage.alt = `Imagen ampliada de ${name}`;
-  popupCaption.textContent = name;
-  openPopup(imagePopupElement);
-}
-
-// --- Maneja el clic en el botón "Me gusta", alternando su estado activo ---
-function handleLikeButtonClick(evt) {
-  evt.currentTarget.classList.toggle("card__like-button--active");
-}
-
-// --- Maneja el envío del formulario de "Editar Perfil" ---
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileTitle.textContent = nameInput.value;
-  profileSubtitle.textContent = aboutInput.value;
-  closePopup(editProfilePopupElement);
-}
-
-// --- Maneja el envío del formulario de "Agregar Tarjeta" ---
-function handleAddCardFormSubmit(evt) {
-  evt.preventDefault();
-  const newCardData = {
-    name: titleInput.value,
-    link: imageUrlInput.value,
-  };
-  const cardElement = createCard(newCardData);
-  cardsContainer.prepend(cardElement);
-  closePopup(addCardPopupElement);
-  addCardForm.reset();
-}
-
-// -- Mostrar y ocultar mensaje de error de validación -- //
-function showInputError(formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(
-    `#popup__input-error_${inputElement.name}`
-  );
-
-  inputElement.classList.add("popup__input_type_error");
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add("popup__error_visible");
-}
-
-function hideInputError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(
-    `#popup__input-error_${inputElement.name}`
-  );
-
-  inputElement.classList.remove("popup__input_type_error");
-  errorElement.textContent = "";
-  errorElement.classList.remove("popup__error_visible");
-}
-
-// -- Validación de campos del formulario -- //
-function checkInputValidity(formElement, inputElement) {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-}
-
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-}
-
-// -- Habilitar y deshabilitar botón submit de formularios -- //
-function toggleButtonState(inputList, buttonElement) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add("popup__button_disabled");
-    buttonElement.disabled = true;
-  } else {
-    buttonElement.classList.remove("popup__button_disabled");
-    buttonElement.disabled = false;
-  }
-}
-
-// Agregar eventos para validación de formulario
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
-  const buttonElement = formElement.querySelector(".popup__button");
-
-  toggleButtonState(inputList, buttonElement);
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-}
-
-// -- Restablecer validación al cerrar y abrir modal -- //
-function resetValidation(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
-  const buttonElement = formElement.querySelector(".popup__button");
-
-  inputList.forEach((inputElement) => {
-    hideInputError(formElement, inputElement);
-  });
-
-  toggleButtonState(inputList, buttonElement);
-}
-
-// =============================================================================
-// EJECUCIÓN INICIAL Y CONEXIÓN DE EVENTOS
-// =============================================================================
-
-// --- Carga inicial de tarjetas ---
-initialCards.forEach((cardData) => {
-  const cardElement = createCard(cardData);
+// Renderiza las tarjetas iniciales
+initialCards.forEach((item) => {
+  const cardElement = createNewCard(item);
   cardsContainer.append(cardElement);
 });
 
-// --- Conexión de Eventos (Event Listeners) ---
+// =============================================================================
+//                         MANEJADORES DE EVENTOS (LISTENERS)
+// =============================================================================
 
-// Evento para abrir el modal de Editar Perfil
+// --- Evento para abrir el modal de Editar Perfil ---
 profileEditButton.addEventListener("click", () => {
   nameInput.value = profileTitle.textContent.trim();
   aboutInput.value = profileSubtitle.textContent.trim();
-  resetValidation(editProfileForm);
+  editFormValidator.resetValidation();
   openPopup(editProfilePopupElement);
 });
 
-// Evento para abrir el modal de Agregar Tarjeta
+// --- Evento para abrir el modal de Agregar Tarjeta ---
 profileAddButton.addEventListener("click", () => {
   addCardForm.reset();
-  resetValidation(addCardForm);
+  addFormValidator.resetValidation();
   openPopup(addCardPopupElement);
 });
 
-// Eventos para cerrar los modales con sus respectivos botones 'X'
+// --- Eventos para cerrar los modales con sus botones 'X' ---
 editProfileCloseButton.addEventListener("click", () =>
   closePopup(editProfilePopupElement)
 );
@@ -263,19 +150,40 @@ imagePopupCloseButton.addEventListener("click", () =>
   closePopup(imagePopupElement)
 );
 
-// Eventos para manejar el envío de cada formulario
-editProfileForm.addEventListener("submit", handleProfileFormSubmit);
-addCardForm.addEventListener("submit", handleAddCardFormSubmit);
+// --- Evento para manejar el envío del formulario de "Editar Perfil" ---
+editProfileForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  profileTitle.textContent = nameInput.value;
+  profileSubtitle.textContent = aboutInput.value;
+  closePopup(editProfilePopupElement);
+});
 
-// Lógica para cerrar cualquier modal al hacer clic en el fondo oscuro
+// --- Evento para manejar el envío del formulario de "Agregar Tarjeta" ---
+addCardForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  const newCardData = {
+    name: titleInput.value,
+    link: imageUrlInput.value,
+  };
+  const cardElement = createNewCard(newCardData);
+  cardsContainer.prepend(cardElement);
+  closePopup(addCardPopupElement);
+});
+
+// --- Lógica para cerrar cualquier modal al hacer clic en el fondo oscuro ---
 document.querySelectorAll(".popup").forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("popup_opened")) {
       closePopup(popup);
     }
+    if (evt.target.classList.contains("popup__close-button")) {
+      closePopup(popup);
+    }
+  });
+  // Cierre con la tecla Escape
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+    }
   });
 });
-
-// Activar la validacion de formularios //
-setEventListeners(editProfileForm);
-setEventListeners(addCardForm);
